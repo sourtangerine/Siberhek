@@ -1,11 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruit QC Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+  <header class="topbar">
+    <div class="topbar-brand">
+      <span class="topbar-icon">&#9881;</span>
+      <h1>Fruit QC Inspector</h1>
+    </div>
+    <span class="topbar-status">System Online</span>
+  </header>
+
+  <main class="dashboard">
+    <!-- Left: Upload & Preview -->
+    <section class="panel panel-main">
+      <h2 class="panel-title">Image Input</h2>
+
+      <!-- Drag & Drop Upload -->
+      <div class="upload-zone" id="uploadZone">
+        <div class="upload-zone-content">
+          <svg class="upload-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 4L24 32M24 4L16 12M24 4L32 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 28V40C8 41.1 8.9 42 10 42H38C39.1 42 40 41.1 40 40V28" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p class="upload-text">Drag &amp; drop fruit image here</p>
+          <p class="upload-subtext">or click to browse</p>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" hidden>
+      </div>
+
+      <!-- Image Preview Canvas -->
+      <div class="canvas-wrapper" id="canvasWrapper">
+        <canvas id="previewCanvas"></canvas>
+        <div class="canvas-overlay" id="canvasOverlay">No image loaded</div>
+      </div>
+
+      <div class="canvas-controls">
+        <button class="btn btn-outline" id="btnHighlight">Highlight Defects</button>
+        <button class="btn btn-outline" id="btnClear">Clear</button>
+      </div>
+    </section>
+
+    <!-- Right: Inspection Results -->
+    <aside class="panel panel-side">
+      <h2 class="panel-title">Inspection Results</h2>
+
+      <div class="results-grid">
+        <!-- Ripeness -->
+        <div class="result-card">
+          <span class="result-label">Ripeness</span>
+          <div class="result-bar-track">
+            <div class="result-bar" id="barRipeness" style="width: 0%;"></div>
+          </div>
+          <span class="result-value" id="valRipeness">—</span>
+        </div>
+
+        <!-- Color Grade -->
+        <div class="result-card">
+          <span class="result-label">Color Grade</span>
+          <div class="result-bar-track">
+            <div class="result-bar bar-color" id="barColor" style="width: 0%;"></div>
+          </div>
+          <span class="result-value" id="valColor">—</span>
+        </div>
+
+        <!-- Defect Score -->
+        <div class="result-card">
+          <span class="result-label">Defect Score</span>
+          <div class="result-bar-track">
+            <div class="result-bar bar-defect" id="barDefect" style="width: 0%;"></div>
+          </div>
+          <span class="result-value" id="valDefect">—</span>
+        </div>
+
+        <!-- Size Uniformity -->
+        <div class="result-card">
+          <span class="result-label">Size Uniformity</span>
+          <div class="result-bar-track">
+            <div class="result-bar bar-size" id="barSize" style="width: 0%;"></div>
+          </div>
+          <span class="result-value" id="valSize">—</span>
+        </div>
+      </div>
+
+      <!-- Verdict -->
+      <div class="verdict-section">
+        <h3 class="verdict-title">Verdict</h3>
+        <div class="verdict-badge" id="verdictBadge">Awaiting Image</div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn btn-approve" id="btnApprove" disabled>&#10003; Approve</button>
+        <button class="btn btn-reject" id="btnReject" disabled>&#10007; Reject</button>
+      </div>
+
+      <!-- Log -->
+      <div class="log-section">
+        <h3 class="log-title">Activity Log</h3>
+        <ul class="log-list" id="logList">
+          <li class="log-item">System initialized.</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
